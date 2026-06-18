@@ -29,7 +29,7 @@ class QuickTask(FlowLauncher):
         try:
             subprocess.run(
                 ["emacsclientw", "-a", "emacs", "--eval",
-                 f'(my/flowlauncher-insert-task "{escaped}")'],
+                 f'(my/phoneme-insert-task "{escaped}")'],
                 capture_output=True,
                 timeout=10,
                 creationflags=subprocess.CREATE_NO_WINDOW
