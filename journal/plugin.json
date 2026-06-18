@@ -1,0 +1,12 @@
+{
+    "ID": "d8a2c4b6-1e3f-4a5b-9c7d-8e0f1a2b3c4d",
+    "ActionKeywords": ["j"],
+    "Name": "Quick Journal",
+    "Description": "Append a journal entry (Log) to today's journal.org via emacsclient",
+    "Author": "namefailed",
+    "Version": "1.0.0",
+    "Language": "python",
+    "Website": "https://github.com/namefailed/flowlauncher-quick-emacs",
+    "IcoPath": "Images\\journal.png",
+    "ExecuteFileName": "run.py"
+}

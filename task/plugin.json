@@ -1,0 +1,12 @@
+{
+    "ID": "e5f7a8b9-0c1d-2e3f-4a5b-6c7d8e9f0a1b",
+    "ActionKeywords": ["t"],
+    "Name": "Quick Task",
+    "Description": "Add a TODO task to today's tasks.org via emacsclient",
+    "Author": "namefailed",
+    "Version": "1.0.0",
+    "Language": "python",
+    "Website": "https://github.com/namefailed/flowlauncher-quick-emacs",
+    "IcoPath": "Images\\task.png",
+    "ExecuteFileName": "run.py"
+}
