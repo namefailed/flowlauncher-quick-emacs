@@ -38,7 +38,7 @@ You need these in your Emacs config:
     (org-datetree-find-date-create (calendar-current-date))
     (end-of-line) (newline) (insert ts text) (save-buffer)))
 
-(defun my/flowlauncher-insert-task (text)
+(defun my/flowlauncher-insert-journal-task (text)
   (require 'org-datetree)
   (find-file "~/journal.org")
   (org-datetree-find-date-create (calendar-current-date))
