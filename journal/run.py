@@ -29,7 +29,7 @@ class QuickJournal(FlowLauncher):
         try:
             subprocess.run(
                 ["emacsclientw", "-a", "emacs", "--eval",
-                 f'(my/flowlauncher-insert-transcript "{escaped}")'],
+                 f'(my/flowlauncher-insert-entry "{escaped}")'],
                 capture_output=True,
                 timeout=10,
                 creationflags=subprocess.CREATE_NO_WINDOW

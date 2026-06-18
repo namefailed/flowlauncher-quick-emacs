@@ -31,7 +31,7 @@ t fix auth bug   → inserts TODO in Tasks
 You need these in your Emacs config:
 
 ```elisp
-(defun my/flowlauncher-insert-transcript (text)
+(defun my/flowlauncher-insert-entry (text)
   (let ((ts (format-time-string "- [%Y-%m-%d %a %H:%M] ")))
     (require 'org-datetree)
     (find-file "~/journal.org")
