@@ -1,21 +1,21 @@
 # Flow Launcher Quick Emacs
 
-Two independent Flow Launcher plugins for Emacs capture:
+Single repo, two standalone Flow Launcher plugins for Emacs capture:
 
-| Plugin | Keyword | Action |
-|--------|---------|--------|
-| **Quick Journal** | `j` | Append text to today's **Log** section |
-| **Quick Task** | `t` | Insert a `***** TODO` heading in today's **Tasks** section |
+| Plugin | Keyword | What it does |
+|--------|---------|-------------|
+| **Quick Journal** | `j` | Appends text to today's **Log** section |
+| **Quick Task** | `t` | Inserts a `***** TODO` heading in today's **Tasks** |
 
-Each plugin is fully self-contained — copy its directory to
-`%APPDATA%\FlowLauncher\Plugins\` and restart Flow Launcher.
+Each plugin is a fully self-contained directory — copy it directly to
+`%APPDATA%\FlowLauncher\Plugins\` and restart.
 
 ## Prerequisites
 
 - [Flow Launcher](https://flowlauncher.com/)
 - [Emacs](https://www.gnu.org/software/emacs/) with a running daemon (`emacs --daemon`)
 - `emacsclientw` on `PATH`
-- Elisp functions in your Emacs config (see [Emacs Setup](#emacs-setup))
+- The Elisp functions below in your Emacs config
 
 ## Installation
 
@@ -34,25 +34,31 @@ Restart Flow Launcher.
 ## Usage
 
 ```
-j buy milk          → appends to today's Log
-t fix auth bug      → inserts a TODO in today's Tasks
+j buy milk       → appends - [2026-06-17 Tue 22:00] buy milk to the Log
+t fix auth bug   → inserts ***** TODO fix auth bug in Tasks
 ```
 
-## Emacs Setup
+## Emacs setup
 
-The plugins call `my/flowlauncher-insert-transcript` and
-`my/flowlauncher-insert-task`. Define them in your Emacs config:
+Add these to your Emacs config (tailored for the org-journal file at
+`my/org-journal-file` — adjust to your own path):
 
 ```elisp
-(defun my/flowlauncher-insert-transcript (text)
-  (require 'org-datetree)
-  (find-file "~/journal.org")
-  (org-datetree-find-date-create (calendar-current-date))
-  (end-of-line)
-  (insert (concat "\n- [" (format-time-string "%Y-%m-%d %a %H:%M") "] " text))
-  (save-buffer))
+(defun my/flowlauncher-insert-transcript (transcript)
+  "Insert TRANSCRIPT into today's journal Log section.
+Called from Quick Journal Flow Launcher plugin."
+  (let ((ts (format-time-string "- [%Y-%m-%d %a %H:%M] ")))
+    (require 'org-datetree)
+    (find-file "~/journal.org")
+    (org-datetree-find-date-create (calendar-current-date))
+    (end-of-line)
+    (newline)
+    (insert ts transcript)
+    (save-buffer)))
 
 (defun my/flowlauncher-insert-task (text)
+  "Insert a TODO task from TEXT into today's journal Tasks.
+Called from Quick Task Flow Launcher plugin."
   (require 'org-datetree)
   (find-file "~/journal.org")
   (org-datetree-find-date-create (calendar-current-date))
@@ -65,12 +71,12 @@ The plugins call `my/flowlauncher-insert-transcript` and
 
 ```
 flowlauncher-quick-emacs/
-├── journal/
+├── journal/                → Quick Journal plugin (keyword j)
 │   ├── plugin.json
 │   ├── run.py
 │   └── Images/
 │       └── journal.png
-├── task/
+├── task/                   → Quick Task plugin (keyword t)
 │   ├── plugin.json
 │   ├── run.py
 │   └── Images/
@@ -78,6 +84,14 @@ flowlauncher-quick-emacs/
 ├── LICENSE
 └── README.md
 ```
+
+## Troubleshooting
+
+| Symptom | Fix |
+|---------|-----|
+| "emacsclientw not found" | Add Emacs `bin/` to `PATH` |
+| "Symbol's function definition is void" | Load `my/flowlauncher-insert-transcript` / `my/flowlauncher-insert-task` in Emacs config |
+| Plugin not showing up | Verify directory is directly under `Plugins\`, restart Flow Launcher |
 
 ## License
 
